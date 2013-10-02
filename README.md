@@ -1,4 +1,6 @@
-compiler-pt-shell
+Compilador Português - Shell
 =================
 
-Repositório dedicado a disciplina de compiladores
+Compilador que traduz comandos escritos em português simplificado para um shell script correspondente.
+
+Implementação realizada em linguagem C com auxílio das ferramentas flex e bison.

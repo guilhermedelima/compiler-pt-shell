@@ -15,3 +15,11 @@
 *.exe
 *.out
 *.app
+
+#Project - Compiler
+
+*~
+#bin/*
+*.tab.c
+*.tab.h
+*.yy.c
