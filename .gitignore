@@ -19,7 +19,7 @@
 #Project - Compiler
 
 *~
-#bin/*
+bin/*
 *.tab.c
 *.tab.h
 *.yy.c
