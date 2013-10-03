@@ -1,13 +1,15 @@
 %{
 #include "pt_spell.h"
+
+char *verb;
+char *name;
 %}
 
 
 /* Definitions */
 STRING [a-z][a-z0-9]*
 NUMBER [0-9]*
-WHITESPACE [ \t]
-
+WHITESPACE [ \t\r]+
 
 
 %%
@@ -22,6 +24,9 @@ WHITESPACE [ \t]
 	yylval = atoi(yytext);
 	return T_NUMBER;
 }
+
+"ARQUIVO" {  return T_FILE; }
+"DIRETORIO" { return T_FOLDER; }
 
 "\n" { return T_END; }
 

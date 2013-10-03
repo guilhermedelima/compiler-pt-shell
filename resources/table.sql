@@ -19,3 +19,10 @@ CREATE TABLE syntax.verbos
   ei character varying(100),
   CONSTRAINT verbos_pkey PRIMARY KEY (id_verbo )
 );
+
+
+create table syntax.comandos(
+	id_verbo int references syntax.verbos (id_verbo),
+	infinitivo varchar(100),
+	comando varchar(25)
+);

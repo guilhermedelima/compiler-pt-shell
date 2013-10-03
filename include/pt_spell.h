@@ -27,6 +27,15 @@ extern void yyerror(char* s);
 #define POSTGRESQL_DB "host=localhost user=postgres password=root dbname=dictionary_pt"
 #define MAX_VECTOR 256
 
+typedef struct{
+	char *name;
+	char *command;
+}token_verb;
+
+extern char *verb, *name;
+
+
+
 extern int find_verb(char *token);
 extern char *build_query(char *key);
 extern PGconn *connect_postgresql();

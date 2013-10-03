@@ -3,6 +3,7 @@
 int find_verb(char *token){	
 
 	char *query;
+	int n_lines, token_type;
 	PGconn *connection;
 	PGresult *result;
 
@@ -11,17 +12,38 @@ int find_verb(char *token){
 	connection = connect_postgresql();
 	result = exec_query(query, connection);
 
-	printf("Query Result: %s\n", PQgetvalue(result, 0, 0));
+	n_lines = PQntuples(result);
 
+	if(n_lines == 1){
+
+		char *result_name;
+
+		result_name = PQgetvalue(result, 0, 0);
+		verb = (char *) calloc(strlen(result_name)+1, sizeof(char));
+		strcpy(verb, result_name);
+
+		token_type = T_VERB;
+		
+	}else{
+
+		name = (char *) calloc(strlen(token)+1, sizeof(char));
+		strcpy(name, token);
+
+		token_type = T_NAME;
+
+	}
+
+	PQclear(result);
 	close_postgresql(connection);
+	free(query);
 
-	return T_VERB;
+	return token_type;
 }
 
 char *build_query(char *key){
 
 	char *query;
-	query = (char *) malloc(MAX_VECTOR * sizeof(char));
+	query = (char *) calloc(MAX_VECTOR+1, sizeof(char));
 
 	strcat(query, "select infinitivo from syntax.verbos where split_part(ia, ':', 1) like '");
 	strcat(query, key);
@@ -57,7 +79,7 @@ PGresult *exec_query(char *query, PGconn *connection){
 	status = PQresultStatus(result);
 
 	if(status != PGRES_COMMAND_OK && status != PGRES_TUPLES_OK){
-		fprintf(stderr, "Error on exec select at postgresql\n");
+		fprintf(stderr, "Error on exec select at postgresql: %s\n", PQerrorMessage(connection));
 		exit(-1);
 	}
 
