@@ -9,8 +9,8 @@ CC=gcc
 
 CFLAGS=-W -Wall -I $(INCDIR)
 
-all: flex bison $(SRCDIR)/pt_spell.c $(INCDIR)/pt_spell.h
-	$(CC) $(CFLAGS) -o $(BINDIR)/compiler $(SRCDIR)/lex.yy.c $(SRCDIR)/y.tab.c $(SRCDIR)/pt_spell.c -lpq
+all: flex bison $(SRCDIR)/pt_spell.c $(SRCDIR)/shell_parser.c $(INCDIR)/pt_spell.h $(INCDIR)/shell_parser.h
+	$(CC) $(CFLAGS) -o $(BINDIR)/compiler $(SRCDIR)/lex.yy.c $(SRCDIR)/y.tab.c $(SRCDIR)/pt_spell.c $(SRCDIR)/shell_parser.c -lpq
 
 
 flex: $(SRCDIR)/lex.l

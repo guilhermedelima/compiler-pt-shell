@@ -1,3 +1,34 @@
+-- COMANDOS
+
+
+insert into syntax.comandos
+select id_verbo, infinitivo, 'cd'
+from syntax.verbos 
+where infinitivo like 'mudar' or infinitivo like 'ir';
+
+insert into syntax.comandos
+select id_verbo, infinitivo, 'ls'
+from syntax.verbos 
+where infinitivo like 'ver' or infinitivo like 'mostrar' or infinitivo like 'exibir';
+
+insert into syntax.comandos
+select id_verbo, infinitivo, 'mkdir'
+from syntax.verbos 
+where infinitivo like 'criar' or infinitivo like 'gerar';
+
+insert into syntax.comandos
+select id_verbo, infinitivo, 'rm'
+from syntax.verbos 
+where infinitivo like 'remover' or infinitivo like 'apagar';
+
+insert into syntax.comandos
+select id_verbo, infinitivo, 'cp'
+from syntax.verbos 
+where infinitivo like 'copiar';
+
+
+-- VERBOS
+
 insert into syntax.verbos(infinitivo, "is", fi, ti, ii, fn, ps, mi, "in", ia, fs, pi, ip, ei) values
 ('mostrar', 'mostrasse:mostrasses:mostrasse:mostrssemos:mostrsseis:mostrassem', 'mostrarei:mostrars:mostrar:mostraremos:mostrareis:mostraro', 'mostraria:mostrarias:mostraria:mostraramos:mostrareis:mostrariam',  'mostrava:mostravas:mostrava:mostrvamos:mostrveis:mostravam', 'mostrar:mostrando:mostrado', 'mostre:mostres:mostre:mostremos:mostreis:mostrem', 'mostrara:mostraras:mostrara:mostrramos:mostrreis:mostraram', 'mostres:mostre:mostremos:mostreis:mostrem', 'mostra:mostre:mostremos:mostrai:mostrem', 'mostrar:mostrares:mostrar:mostrarmos:mostrardes:mostrarem', 'mostro:mostras:mostra:mostramos:mostrais:mostram', 'mostrar:mostrares:mostrar:mostrarmos:mostrardes:mostrarem', 'mostrei:mostraste:mostrou:mostramos:mostrastes:mostraram');
 
