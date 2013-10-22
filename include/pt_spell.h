@@ -24,7 +24,7 @@ extern void yyerror(char* s);
   pt_spell functions
 */
 
-#define POSTGRESQL_DB "host=localhost user=postgres password=root dbname=dictionary_pt"
+#define POSTGRESQL_DB "host=localhost user=postgres password=12345 dbname=dictionary_pt"
 #define MAX_VECTOR 256
 
 extern int find_verb(char *token);
