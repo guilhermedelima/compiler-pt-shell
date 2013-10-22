@@ -10,7 +10,7 @@
 %token T_NAME
 %token T_END
 %token T_NUMBER
-
+%token T_PREPOSITION
 %start Input
 
 %%
@@ -29,6 +29,7 @@ command:
 	| T_VERB T_FOLDER T_NAME { put_command_1(verb, name); }
 	| T_VERB T_FILE T_NAME { put_command_2(verb, name); }
 	| T_VERB T_NAME { printf("TODO yet\n"); }
+	| T_VERB T_PREPOSITION T_FOLDER T_NAME { put_command_3(verb, name); } 
 	;
 
 %%

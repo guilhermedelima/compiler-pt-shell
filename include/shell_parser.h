@@ -8,6 +8,7 @@
 
 extern void put_command_1(char *verb, char *name);
 extern void put_command_2(char *verb, char *name);
+extern void put_command_3(char *verb, char *name);
 
 
 

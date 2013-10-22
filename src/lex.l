@@ -7,7 +7,7 @@ char *name;
 
 
 /* Definitions */
-STRING [a-z][a-z0-9]*
+STRING [a-z\/][a-z0-9\/]*
 NUMBER [0-9]*
 WHITESPACE [ \t\r]+
 
@@ -27,6 +27,7 @@ WHITESPACE [ \t\r]+
 
 "ARQUIVO" {  return T_FILE; }
 "DIRETORIO" { return T_FOLDER; }
+"PARA" { return T_PREPOSITION; } 
 
 "\n" { return T_END; }
 
