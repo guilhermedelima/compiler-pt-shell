@@ -98,4 +98,19 @@ insert into syntax.verbos(infinitivo, "is", fi, ti, ii, fn, ps, mi, "in", ia, fs
 insert into syntax.verbos(infinitivo, "is", fi, ti, ii, fn, ps, mi, "in", ia, fs, pi, ip, ei) values
 ('transcrever', 'transcrevesse:transcrevesses:transcrevesse:transcrevssemos:transcrevsseis:transcrevessem', 'transcreverei:transcrevers:transcrever:transcreveremos:transcrevereis:transcrevero', 'transcreveria:transcreverias:transcreveria:transcreveramos:transcrevereis:transcreveriam', 'transcrevia:transcrevias:transcrevia:transcrevamos:transcreveis:transcreviam', 'transcrever:transcrevendo:transcrevido', 'transcreva:transcrevas:transcreva:transcrevamos:transcrevais:transcrevam', 'transcrevera:transcreveras:transcrevera:transcrevramos:transcrevreis:transcreveram', 'transcrevas:transcreva:transcrevamos:transcrevais:transcrevam', 'transcreve:transcreva:transcrevamos:transcrevei:transcrevam', 'transcrever:transcreveres:transcrever:transcrevermos:transcreverdes:transcreverem', 'transcrevo:transcreves:transcreve:transcrevemos:transcreveis:transcrevem', 'transcrever:transcreveres:transcrever:transcrevermos:transcreverdes:transcreverem', 'transcrevi:transcreveste:transcreveu:transcrevemos:transcrevestes:transcreveram');
 
+insert into syntax.verbos(infinitivo, "is", fi, ti, ii, fn, ps, mi, "in", ia, fs, pi, ip, ei) values
+('voltar',
+'voltasse:voltasses:voltasse:volt',
+'voltarei:voltar',
+'voltaria:voltarias:voltaria:voltar',
+'voltava:voltavas:voltava:volt',
+'voltar:voltando:voltado',
+'volte:voltes:volte:voltemos:volteis:voltem',
+'voltara:voltaras:voltara:volt',
+'voltes:volte:voltemos:volteis:voltem',
+'volta:volte:voltemos:voltai:voltem',
+'voltar:voltares:voltar:voltarmos:voltardes:voltarem',
+'volto:voltas:volta:voltamos:voltais:voltam',
+'voltar:voltares:voltar:voltarmos:voltardes:voltarem',
+'voltei:voltaste:voltou:voltamos:voltastes:voltaram');
 
