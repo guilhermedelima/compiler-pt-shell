@@ -8,18 +8,34 @@ FLEX=flex
 CC=gcc
 
 CFLAGS=-W -Wall -I $(INCDIR)
+LIBS=-lpq
 
-all: flex bison $(SRCDIR)/pt_spell.c $(SRCDIR)/shell_parser.c $(INCDIR)/pt_spell.h $(INCDIR)/shell_parser.h
-	$(CC) $(CFLAGS) -o $(BINDIR)/compiler $(SRCDIR)/lex.yy.c $(SRCDIR)/y.tab.c $(SRCDIR)/pt_spell.c $(SRCDIR)/shell_parser.c -lpq
+TARGET=compiler
 
+_HEADER=shell_parser.h pt_spell.h
+_OBJ=pt_spell.o shell_parser.o
+_F_FILE=lex.yy.c
+_B_FILE=y.tab.c
 
-flex: $(SRCDIR)/lex.l
-	$(FLEX) -o $(SRCDIR)/lex.yy.c $(SRCDIR)/lex.l
+HEADER=$(patsubst %,$(INCDIR)/%,$(_HEADER))
+OBJ=$(patsubst %,$(OBJDIR)/%,$(_OBJ))
+F_FILE=$(patsubst %,$(SRCDIR)/%,$(_F_FILE))
+B_FILE=$(patsubst %,$(SRCDIR)/%,$(_B_FILE))
 
+########## TARGETS ##########
 
-bison: $(SRCDIR)/yacc.y
-	$(BISON) -d $(SRCDIR)/yacc.y -o $(SRCDIR)/y.tab.c
+$(TARGET): $(F_FILE) $(B_FILE) $(OBJ) $(LIBS)
+	$(CC) $(CFLAGS) -o $(BINDIR)/$@ $^
+
+$(F_FILE): $(SRCDIR)/lex.l
+	$(FLEX) -o $@ $^
+
+$(B_FILE): $(SRCDIR)/yacc.y
+	$(BISON) -d $^ -o $@
 	mv $(SRCDIR)/y.tab.h $(INCDIR)/
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADER)
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 
 clean:
@@ -31,4 +47,3 @@ clean:
 	rm -f $(SRCDIR)/*tab.c
 	rm -f $(INCDIR)/*~
 	rm -f $(INCDIR)/*tab.h
-
