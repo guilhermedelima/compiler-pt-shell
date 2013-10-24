@@ -26,6 +26,10 @@ select id_verbo, infinitivo, 'cp'
 from syntax.verbos 
 where infinitivo like 'copiar';
 
+insert into syntax.comandos
+select id_verbo, infinitivo, 'cd'
+from syntax.verbos 
+where infinitivo like 'voltar';
 
 -- VERBOS
 
