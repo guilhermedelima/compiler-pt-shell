@@ -25,9 +25,12 @@ WHITESPACE [ \t\r]+
 	return T_NUMBER;
 }
 
+
 "ARQUIVO" {  return T_FILE; }
+"ARQUIVOS" { return T_FILES; }
 "DIRETORIO" { return T_FOLDER; }
-"PARA" { return T_PREPOSITION; } 
+"PARA" { return T_PREPOSITION; }
+"ANTERIOR" { return T_BACK; }
 
 "\n" { return T_END; }
 
