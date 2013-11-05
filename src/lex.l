@@ -10,11 +10,24 @@ char *name;
 STRING [a-z\/][a-z0-9\/]*
 NUMBER [0-9]*
 WHITESPACE [ \t\r]+
+FILE arquivo
+FILES arquivos
+FOLDER diretorio
+PREPOSITION para
+BACK anterior
 
+%option case-insensitive
 
 %%
 
 {WHITESPACE} { /* Nothing to do */ }
+
+{FILE} {  return T_FILE; }
+{FILES} { return T_FILES; }
+{FOLDER} { return T_FOLDER; }
+{PREPOSITION} { return T_PREPOSITION; }
+{BACK} { return T_BACK; }
+
 
 {STRING} { 	
 	return find_verb(yytext);
@@ -25,12 +38,6 @@ WHITESPACE [ \t\r]+
 	return T_NUMBER;
 }
 
-
-"ARQUIVO" {  return T_FILE; }
-"ARQUIVOS" { return T_FILES; }
-"DIRETORIO" { return T_FOLDER; }
-"PARA" { return T_PREPOSITION; }
-"ANTERIOR" { return T_BACK; }
 
 "\n" { return T_END; }
 
