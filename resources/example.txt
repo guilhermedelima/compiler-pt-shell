@@ -1,0 +1,24 @@
+criar diretorio /opt
+criar arquivo Makefile
+
+gerar diretorio /opt
+gerar arquivo Makefile
+
+ver diretorio /home/guilherme
+ver ARQUIVO /home/guilherme/.bashrc
+
+MOSTRAR DIRETORIO /home/guilherme
+MOSTRAR ARQUIVO /home/guilherme/.bashrc
+
+REMOVER diretorio /opt
+remover ARQUIVO Makefile
+
+Copiar Arquivo /home/x para y		
+Copiar Arquivo /home/x para diretorio /opt	
+Copiar Arquivo /home/x para Arquivo y		
+
+Copiar Diretorio /home/text para /opt		
+Copiar Diretorio /home/text para Diretorio /opt
+
+Copiar Arquivos /home/arq1 /etc/arq2 /sys/arq3 para diretorio /opt
+Copiar diretorios /home/dir1 /etc/dir2 /sys/dir3 para diretorio /opt 

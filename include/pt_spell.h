@@ -1,7 +1,6 @@
 #ifndef PT_SPELL_H
 #define PT_SPELL_H
 
-#define YYSTYPE double
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,7 +12,12 @@
   bison functions
 */
 
+#define YY_NO_INPUT
+
 extern YYSTYPE yylval;
+
+extern FILE *yyin;
+extern FILE *yyout;
 
 extern int yylex(); 
 extern int yyparse(); 
@@ -26,14 +30,6 @@ extern void yyerror(char* s);
 
 #define POSTGRESQL_DB "host=localhost user=postgres password=root dbname=dictionary_pt"
 #define MAX_VECTOR 256
-
-typedef struct{
-	char *name;
-	char *command;
-}token_verb;
-
-extern char *verb, *name;
-
 
 
 extern int find_verb(char *token);

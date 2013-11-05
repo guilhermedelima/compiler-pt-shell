@@ -19,18 +19,13 @@ int find_verb(char *token){
 		char *result_name;
 
 		result_name = PQgetvalue(result, 0, 0);
-		verb = (char *) calloc(strlen(result_name)+1, sizeof(char));
-		strcpy(verb, result_name);
+		yylval.str = strdup(result_name);
 
 		token_type = T_VERB;
-		
+
 	}else{
-
-		name = (char *) calloc(strlen(token)+1, sizeof(char));
-		strcpy(name, token);
-
+		yylval.str = strdup(token);
 		token_type = T_NAME;
-
 	}
 
 	PQclear(result);
@@ -45,11 +40,11 @@ char *build_query(char *key){
 	char *query;
 	query = (char *) calloc(MAX_VECTOR+1, sizeof(char));
 
-	strcat(query, "select infinitivo from syntax.verbos where split_part(ia, ':', 1) like '");
+	strcat(query, "select infinitivo from syntax.verbos where split_part(ia, ':', 1) ilike '");
 	strcat(query, key);
-	strcat(query, "' or split_part(ia, ':', 2) like '");
+	strcat(query, "' or split_part(ia, ':', 2) ilike '");
 	strcat(query, key);
-	strcat(query, "' or split_part(fn, ':', 1) like '");
+	strcat(query, "' or split_part(fn, ':', 1) ilike '");
 	strcat(query, key);
 	strcat(query, "';");
 	
