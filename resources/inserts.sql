@@ -156,7 +156,7 @@ insert into syntax.verbos(infinitivo, "is", fi, ti, ii, fn, ps, mi, "in", ia, fs
 'busquei:buscaste:buscou:buscamos:buscastes:buscaram');
 
 insert into syntax.verbos(infinitivo, "is", fi, ti, ii, fn, ps, mi, "in", ia, fs, pi, ip, ei) values
-('filtar',
+('filtrar',
 'filtrasse:filtrasses:filtrasse:filtr',
 'filtrarei:filtrar',
 'filtraria:filtrarias:filtraria:filtrar',
