@@ -31,6 +31,11 @@ select id_verbo, infinitivo, 'cd'
 from syntax.verbos 
 where infinitivo like 'voltar';
 
+insert into syntax.comandos
+select id_verbo, infinitivo, 'grep'
+from syntax.verbos 
+where infinitivo like 'encontrar' or infinitivo like 'buscar' or infinitivo like 'filtrar';
+
 -- VERBOS
 
 insert into syntax.verbos(infinitivo, "is", fi, ti, ii, fn, ps, mi, "in", ia, fs, pi, ip, ei) values
@@ -117,4 +122,59 @@ insert into syntax.verbos(infinitivo, "is", fi, ti, ii, fn, ps, mi, "in", ia, fs
 'volto:voltas:volta:voltamos:voltais:voltam',
 'voltar:voltares:voltar:voltarmos:voltardes:voltarem',
 'voltei:voltaste:voltou:voltamos:voltastes:voltaram');
+
+insert into syntax.verbos(infinitivo, "is", fi, ti, ii, fn, ps, mi, "in", ia, fs, pi, ip, ei) values
+('encontrar',
+'encontrasse:encontrasses:encontrasse:encontr',
+'encontrarei:encontrar',
+'encontraria:encontrarias:encontraria:encontrar',
+'encontrava:encontravas:encontrava:encontr',
+'encontrar:encontrando:encontrado',
+'encontre:encontres:encontre:encontremos:encontreis:encontrem',
+'encontrara:encontraras:encontrara:encontr',
+'encontres:encontre:encontremos:encontreis:encontrem',
+'encontra:encontre:encontremos:encontrai:encontrem',
+'encontrar:encontrares:encontrar:encontrarmos:encontrardes:encontrarem',
+'encontro:encontras:encontra:encontramos:encontrais:encontram',
+'encontrar:encontrares:encontrar:encontrarmos:encontrardes:encontrarem',
+'encontrei:encontraste:encontrou:encontramos:encontrastes:encontraram');
+
+insert into syntax.verbos(infinitivo, "is", fi, ti, ii, fn, ps, mi, "in", ia, fs, pi, ip, ei) values
+('buscar',
+'buscasse:buscasses:buscasse:busc',
+'buscarei:buscar',
+'buscaria:buscarias:buscaria:buscar',
+'buscava:buscavas:buscava:busc',
+'buscar:buscando:buscado',
+'busque:busques:busque:busquemos:busqueis:busquem',
+'buscara:buscaras:buscara:busc',
+'busques:busque:busquemos:busqueis:busquem',
+'busca:busque:busquemos:buscai:busquem',
+'buscar:buscares:buscar:buscarmos:buscardes:buscarem',
+'busco:buscas:busca:buscamos:buscais:buscam',
+'buscar:buscares:buscar:buscarmos:buscardes:buscarem',
+'busquei:buscaste:buscou:buscamos:buscastes:buscaram');
+
+insert into syntax.verbos(infinitivo, "is", fi, ti, ii, fn, ps, mi, "in", ia, fs, pi, ip, ei) values
+('filtar',
+'filtrasse:filtrasses:filtrasse:filtr',
+'filtrarei:filtrar',
+'filtraria:filtrarias:filtraria:filtrar',
+'filtrava:filtravas:filtrava:filtr',
+'filtrar:filtrando:filtrado',
+'filtre:filtres:filtre:filtremos:filtreis:filtrem',
+'filtrara:filtraras:filtrara:filtr',
+'filtres:filtre:filtremos:filtreis:filtrem',
+'filtra:filtre:filtremos:filtrai:filtrem',
+'filtrar:filtrares:filtrar:filtrarmos:filtrardes:filtrarem',
+'filtro:filtras:filtra:filtramos:filtrais:filtram',
+'filtrar:filtrares:filtrar:filtrarmos:filtrardes:filtrarem',
+'filtrei:filtraste:filtrou:filtramos:filtrastes:filtraram');
+
+
+
+
+
+
+
 
