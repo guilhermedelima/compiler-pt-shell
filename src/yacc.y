@@ -21,6 +21,10 @@ plural_tokens yy_names = {.length = 0};
 %token <num> T_NUMBER
 %token T_PREPOSITION
 %token T_BACK
+%token T_PHRASE
+%token T_LOCATION
+%token T_LOCATIONS
+%token <str> T_REGEX
 
 %%
 
@@ -35,19 +39,32 @@ line:
 
 command:
 	T_NUMBER { printf("NUMBER: %d\n", $1); }
+	| shell_simple
+	| shell_cd
+	| shell_cp
+	| shell_grep
+	;	
 
-	/* Comandos Simples */
-	| T_VERB T_FOLDER T_NAME { put_command_1($1, $3, T_FOLDER); }
-	| T_VERB T_FILE T_NAME { put_command_1($1, $3, T_FILE); }
-	| T_VERB T_NAME { /*TODO*/; }
+names:
+	T_NAME { add_name($1); }
+	| T_NAME names { add_name($1); }
+	;
 
-	/* Comando cd */
-	| T_VERB T_PREPOSITION T_FOLDER T_NAME { put_command_cd($1, $4); } 
+shell_simple:
+	T_VERB T_FOLDER names { put_command_simple($1, T_FOLDER); }
+	| T_VERB T_FILE names { put_command_simple($1, T_FILE); }
+
+	| T_VERB T_FOLDERS names { put_command_simple($1, T_FOLDERS); }
+	| T_VERB T_FILES names { put_command_simple($1, T_FILES); }
+	;
+
+shell_cd:
+	T_VERB T_PREPOSITION T_FOLDER T_NAME { put_command_cd($1, $4); } 
 	| T_VERB T_PREPOSITION T_FOLDER T_BACK { put_command_cd($1, NULL); }
-
-	/* Comando cp */
-	/* Esta regra e a mesma das duas abaixo*/
-	| T_VERB T_FILE T_NAME T_PREPOSITION T_NAME { put_command_cp($1, T_FILE, $3, 0, $5); }
+	;
+	
+shell_cp:
+	T_VERB T_FILE T_NAME T_PREPOSITION T_NAME { put_command_cp($1, T_FILE, $3, 0, $5); }
 
 	| T_VERB T_FILE T_NAME T_PREPOSITION T_FOLDER T_NAME { put_command_cp($1, T_FILE, $3, T_FOLDER, $6); }
 	| T_VERB T_FILE T_NAME T_PREPOSITION T_FILE T_NAME { put_command_cp($1, T_FILE, $3, T_FILE, $6); }
@@ -55,15 +72,16 @@ command:
 	| T_VERB T_FOLDER T_NAME T_PREPOSITION T_NAME { put_command_cp($1, T_FOLDER, $3, 0, $5); }
 	| T_VERB T_FOLDER T_NAME T_PREPOSITION T_FOLDER T_NAME { put_command_cp($1, T_FOLDER, $3, T_FOLDER, $6); }
 
-	/* Comando cp - Plural */
 	| T_VERB T_FILES names T_PREPOSITION T_FOLDER T_NAME { put_command_cp_plural($1, T_FILES, $6); }
 	| T_VERB T_FOLDERS names T_PREPOSITION T_FOLDER T_NAME { put_command_cp_plural($1, T_FOLDERS, $6); }
 	;
 
+shell_grep:
+	T_VERB T_PHRASE T_REGEX T_LOCATION T_FILE names { put_command_grep($1, $3, T_FILE); }
+	| T_VERB T_PHRASE T_REGEX T_LOCATION T_FOLDER names { put_command_grep($1, $3, T_FOLDER); }
 
-names:
-	T_NAME { add_name($1); }
-	| T_NAME names { add_name($1); }
+	| T_VERB T_PHRASE T_REGEX T_LOCATIONS T_FILES names { put_command_grep($1, $3, T_FILES); }
+	| T_VERB T_PHRASE T_REGEX T_LOCATIONS T_FOLDERS names { put_command_grep($1, $3, T_FOLDERS); }
 	;
 
 %%

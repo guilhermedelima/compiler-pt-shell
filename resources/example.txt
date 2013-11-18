@@ -1,17 +1,32 @@
 criar diretorio /opt
 criar arquivo Makefile
 
+criar diretorios /opt /etc
+criar arquivos Makefile output.txt
+
 gerar diretorio /opt
 gerar arquivo Makefile
+
+gerar diretorios /opt /etc
+gerar arquivos Makefile output.txt
 
 ver diretorio /home/guilherme
 ver ARQUIVO /home/guilherme/.bashrc
 
+ver diretorios /home/guilherme /opt
+ver ARQUIVOS /home/guilherme/.bashrc Makefile
+
 MOSTRAR DIRETORIO /home/guilherme
 MOSTRAR ARQUIVO /home/guilherme/.bashrc
 
+MOSTRAR DIRETORIOS /home/guilherme /opt
+MOSTRAR ARQUIVOS /home/guilherme/.bashrc Makefile
+
 REMOVER diretorio /opt
 remover ARQUIVO Makefile
+
+REMOVER diretorios /opt /etc
+remover ARQUIVOS Makefile output.txt
 
 Copiar Arquivo /home/x para y		
 Copiar Arquivo /home/x para diretorio /opt	
@@ -22,3 +37,10 @@ Copiar Diretorio /home/text para Diretorio /opt
 
 Copiar Arquivos /home/arq1 /etc/arq2 /sys/arq3 para diretorio /opt
 Copiar diretorios /home/dir1 /etc/dir2 /sys/dir3 para diretorio /opt 
+
+encontrar frase "public void" no arquivo Pessoa.java
+buscar frase "public void" no diretorio src/
+
+filtrar frase "public void" nos arquivos Pessoa.java Main.java
+encontrar frase "public void" nos diretorios src/ bin/
+

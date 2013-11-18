@@ -6,6 +6,7 @@
 
 /* Definitions */
 STRING [a-z\/\.][a-z0-9\/\.]*
+REGEX [\"]([ a-z0-9\/\.][a-z0-9\/\.]*)*[\"]
 NUMBER [0-9]*
 WHITESPACE [ \t\r]+
 FILE arquivo
@@ -14,6 +15,9 @@ FOLDER diretorio
 FOLDERS diretorios
 PREPOSITION para
 BACK anterior
+PHRASE frase
+LOCATION no
+LOCATIONS nos
 
 %option case-insensitive
 %option nounput
@@ -28,7 +32,15 @@ BACK anterior
 {FOLDERS} { return T_FOLDERS; }
 {PREPOSITION} { return T_PREPOSITION; }
 {BACK} { return T_BACK; }
+{PHRASE} { return T_PHRASE; }
+{LOCATION} { return T_LOCATION; }
+{LOCATIONS} { return T_LOCATIONS; }
 "\n" { return T_END; }
+
+{REGEX} { 
+	yylval.str = strdup(yytext);
+	return T_REGEX; 
+}
 
 {STRING} { 	
 	return find_verb(yytext);
