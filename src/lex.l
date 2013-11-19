@@ -18,6 +18,7 @@ BACK anterior
 PHRASE frase
 LOCATION no
 LOCATIONS nos
+PIPE e
 
 %option case-insensitive
 %option nounput
@@ -35,6 +36,7 @@ LOCATIONS nos
 {PHRASE} { return T_PHRASE; }
 {LOCATION} { return T_LOCATION; }
 {LOCATIONS} { return T_LOCATIONS; }
+{PIPE} { return T_PIPE; }
 "\n" { return T_END; }
 
 {REGEX} { 

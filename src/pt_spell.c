@@ -35,6 +35,31 @@ int find_verb(char *token){
 	return token_type;
 }
 
+boolean check_pipe(char *command){
+
+	char *query, *result_bool;
+	int n_lines;
+	PGconn *connection;
+	PGresult *result;
+	boolean isPipe;
+
+	query = build_pipe_query(command);
+
+	connection = connect_postgresql();
+	result = exec_query(query, connection);
+
+	n_lines = PQntuples(result);
+
+	result_bool = (n_lines == 1) ? PQgetvalue(result, 0, 0) : NULL;
+	isPipe = (!result_bool || !strcmp(result_bool, "n")) ? FALSE : TRUE;
+
+	PQclear(result);
+	close_postgresql(connection);
+	free(query);
+
+	return isPipe;
+}
+
 char *build_query(char *key){
 
 	char *query;
@@ -48,6 +73,19 @@ char *build_query(char *key){
 	strcat(query, key);
 	strcat(query, "';");
 	
+	return query;
+}
+
+char *build_pipe_query(char *command){
+
+	char *query;
+	query = (char *) calloc(MAX_VECTOR+1, sizeof(char));
+
+	strcat(query, "select pipe from syntax.comandos where nome ilike split_part('");
+	strcat(query, command);
+	strcat(query, "', ' ', 1);");
+	free(command);	
+
 	return query;
 }
 

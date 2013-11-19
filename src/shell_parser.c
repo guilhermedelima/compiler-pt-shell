@@ -3,7 +3,7 @@
 /*
   Função que traduz comandos básicos tanto para plural como para singular.
 */
-void put_command_simple(char *verb, int token_type){
+char *put_command_simple(char *verb, int token_type){
 
 	char *command;
 
@@ -23,15 +23,16 @@ void put_command_simple(char *verb, int token_type){
 		exit(-1);
 	}
 
-	fprintf(yyout, "%s ", command);
+	fprintf(yyout, "%s", command);
 	print_names();
-	fprintf(yyout, "\n");
+
+	return strdup(command);
 }
 
 /*
   Função que traduz comando cd - Apenas singular.
 */
-void put_command_cd(char *verb, char *name){
+char *put_command_cd(char *verb, char *name){
 	
 	char *command;
 	command = NULL;
@@ -43,7 +44,9 @@ void put_command_cd(char *verb, char *name){
 		exit(-1);
 	}
 
-	fprintf(yyout, "%s %s\n", command, (name) ? name : "..");
+	fprintf(yyout, "%s %s", command, (name) ? name : "..");
+
+	return strdup(command);
 }
 
 /*
@@ -56,7 +59,7 @@ void put_command_cd(char *verb, char *name){
 	Copiar Diretorio "/home/text" para "/opt"		cp -r /home/test /opt/text
 	Copiar Diretorio "/home/text" para Diretorio "/opt"	cp -r /home/text /opt/text"
 */
-void put_command_cp(char *verb, int s_token, char *source, int t_token, char *target){
+char *put_command_cp(char *verb, int s_token, char *source, int t_token, char *target){
 
 	char *command;
 	char new_target[MAX_VECTOR];
@@ -77,7 +80,9 @@ void put_command_cp(char *verb, int s_token, char *source, int t_token, char *ta
 		free(name);
 	}
 
-	fprintf(yyout, "%s %s %s\n", command, source, new_target);
+	fprintf(yyout, "%s %s %s", command, source, new_target);
+
+	return strdup(command);
 }
 
 /*
@@ -86,7 +91,7 @@ void put_command_cp(char *verb, int s_token, char *source, int t_token, char *ta
 	Copiar Arquivos /home/arq1 /etc/arq2 /sys/arq3 para diretorio /opt	cp /home/arq1/ /etc/arq2 /opt 
 	Copiar diretorios /home/dir1 /etc/dir2 /sys/dir3 para diretorio /opt	cp -R /home/dir1 /home/dir2 /opt 
 */
-void put_command_cp_plural(char *verb, int s_token, char *target){
+char *put_command_cp_plural(char *verb, int s_token, char *target){
 
 	char *command;
 
@@ -102,16 +107,18 @@ void put_command_cp_plural(char *verb, int s_token, char *target){
 		exit(-1);
 	}
 
-	fprintf(yyout, "%s ", command);
+	fprintf(yyout, "%s", command);
 	print_names();
-	fprintf(yyout, "%s\n", target);
+	fprintf(yyout, " %s", target);
+
+	return strdup(command);
 }
 
 
 /*
   Função que traduz comando grep tanto para plural como para singular.
 */
-void put_command_grep(char *verb, char *regex, int token_type){
+char *put_command_grep(char *verb, char *regex, int token_type){
 
 	char *command;
 
@@ -121,14 +128,51 @@ void put_command_grep(char *verb, char *regex, int token_type){
 	}
 
 	if(!strcmp(verb, "buscar") || !strcmp(verb, "encontrar") || !strcmp(verb, "filtrar"))
-		command = (token_type == T_FILE || token_type == T_FILES) ? "grep" : "grep -r";
+		command = (token_type == T_FILE || token_type == T_FILES) ? "grep -i" : "grep -r -i";
 	else{
 		yyerror("There's no command to this verb\n");
 		exit(-1);
 	}
 
-	fprintf(yyout, "%s -i %s ", command, regex);
+	fprintf(yyout, "%s %s", command, regex);
 	print_names();
+
+	return strdup(command);
+}
+
+/* */
+
+void check_left_command(char *command){
+
+	boolean isValidPipe;
+	isValidPipe = check_pipe(command);
+
+	if(isValidPipe == FALSE){
+		yyerror("Invalid verb to the left side of sentence\n");
+		exit(-1);
+	}
+
+}
+
+
+void put_command_pipe_grep(char *verb, char *regex){
+
+	char *command;
+
+	if(!strcmp(verb, "buscar") || !strcmp(verb, "encontrar") || !strcmp(verb, "filtrar"))
+		command = "grep";
+	else{
+		yyerror("There's no command to this verb\n");
+		exit(-1);
+	}
+
+	fprintf(yyout, " | %s %s", command, regex);
+}
+
+
+/* */
+
+void new_line(){
 	fprintf(yyout, "\n");
 }
 
@@ -141,7 +185,7 @@ void print_names(){
 
 	int i;
 	for(i=0; i<yy_names.length; i++){
-		fprintf(yyout, "%s ", yy_names.list[i]);		
+		fprintf(yyout, " %s", yy_names.list[i]);		
 		free(yy_names.list[i]);
 	}	
 
@@ -157,6 +201,7 @@ boolean check_agreement(int token_type){
 
 	return (!isSingularOk || !isPluralOk) ? FALSE : TRUE;
 }
+
 
 char *get_filename(char *full_path){
 
