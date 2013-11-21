@@ -238,6 +238,20 @@ INSERT INTO verbos VALUES (24, 'voltar', 'voltasse:voltasses:voltasse:volt', 'vo
 INSERT INTO verbos VALUES (25, 'encontrar', 'encontrasse:encontrasses:encontrasse:encontr', 'encontrarei:encontrar', 'encontraria:encontrarias:encontraria:encontrar', 'encontrava:encontravas:encontrava:encontr', 'encontrar:encontrando:encontrado', 'encontre:encontres:encontre:encontremos:encontreis:encontrem', 'encontrara:encontraras:encontrara:encontr', 'encontres:encontre:encontremos:encontreis:encontrem', 'encontra:encontre:encontremos:encontrai:encontrem', 'encontrar:encontrares:encontrar:encontrarmos:encontrardes:encontrarem', 'encontro:encontras:encontra:encontramos:encontrais:encontram', 'encontrar:encontrares:encontrar:encontrarmos:encontrardes:encontrarem', 'encontrei:encontraste:encontrou:encontramos:encontrastes:encontraram');
 INSERT INTO verbos VALUES (26, 'buscar', 'buscasse:buscasses:buscasse:busc', 'buscarei:buscar', 'buscaria:buscarias:buscaria:buscar', 'buscava:buscavas:buscava:busc', 'buscar:buscando:buscado', 'busque:busques:busque:busquemos:busqueis:busquem', 'buscara:buscaras:buscara:busc', 'busques:busque:busquemos:busqueis:busquem', 'busca:busque:busquemos:buscai:busquem', 'buscar:buscares:buscar:buscarmos:buscardes:buscarem', 'busco:buscas:busca:buscamos:buscais:buscam', 'buscar:buscares:buscar:buscarmos:buscardes:buscarem', 'busquei:buscaste:buscou:buscamos:buscastes:buscaram');
 INSERT INTO verbos VALUES (27, 'filtrar', 'filtrasse:filtrasses:filtrasse:filtr', 'filtrarei:filtrar', 'filtraria:filtrarias:filtraria:filtrar', 'filtrava:filtravas:filtrava:filtr', 'filtrar:filtrando:filtrado', 'filtre:filtres:filtre:filtremos:filtreis:filtrem', 'filtrara:filtraras:filtrara:filtr', 'filtres:filtre:filtremos:filtreis:filtrem', 'filtra:filtre:filtremos:filtrai:filtrem', 'filtrar:filtrares:filtrar:filtrarmos:filtrardes:filtrarem', 'filtro:filtras:filtra:filtramos:filtrais:filtram', 'filtrar:filtrares:filtrar:filtrarmos:filtrardes:filtrarem', 'filtrei:filtraste:filtrou:filtramos:filtrastes:filtraram');
+INSERT INTO verbos VALUES (28, 'listar',
+'listasse:listasses:listasse:list',
+'listarei:listar',
+'listaria:listarias:listaria:listar',
+'listava:listavas:listava:list',
+'listar:listando:listado',
+'liste:listes:liste:listemos:listeis:listem',
+'listara:listaras:listara:list',
+'listes:liste:listemos:listeis:listem',
+'lista:liste:listemos:listai:listem',
+'listar:listares:listar:listarmos:listardes:listarem',
+'listo:listas:lista:listamos:listais:listam',
+'listar:listares:listar:listarmos:listardes:listarem',
+'listei:listaste:listou:listamos:listastes:listaram');
 
 
 --
