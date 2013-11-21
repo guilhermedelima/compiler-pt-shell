@@ -75,7 +75,10 @@ char *put_command_cp(char *verb, int s_token, char *source, int t_token, char *t
 
 	if(s_token == T_FOLDER || t_token == T_FOLDER){
 		char *name = get_filename(source);
-		strcat(new_target, "/");
+
+		if(new_target[strlen(new_target)-1] != '/')
+			strcat(new_target, "/");
+
 		strcat(new_target, name);
 		free(name);
 	}
