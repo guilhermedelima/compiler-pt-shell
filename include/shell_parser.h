@@ -16,9 +16,11 @@ extern char *put_command_cd(char *verb, char *name);
 extern char *put_command_cp(char *verb, int s_token, char *source, int t_token, char *target);
 extern char *put_command_cp_plural(char *verb, int s_token, char *target);
 extern char *put_command_grep(char *verb, char *regex, int token_type);
+extern char *put_command_sed(char *verb, char *regex_find, char *regex_replace, int token_type);
 
 extern void check_left_command(char *command);
 extern void put_command_pipe_grep(char *verb, char *regex);
+extern void put_command_pipe_sed(char *verb, char *regex_find, char *regex_replace);
 
 extern void new_line();
 extern void add_name(char *names);

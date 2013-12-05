@@ -14,6 +14,7 @@ FILES arquivos
 FOLDER diretorio
 FOLDERS diretorios
 PREPOSITION para
+REPLACE por
 BACK anterior
 PHRASE frase
 LOCATION no
@@ -32,6 +33,7 @@ PIPE e
 {FOLDER} { return T_FOLDER; }
 {FOLDERS} { return T_FOLDERS; }
 {PREPOSITION} { return T_PREPOSITION; }
+{REPLACE} { return T_REPLACE; }
 {BACK} { return T_BACK; }
 {PHRASE} { return T_PHRASE; }
 {LOCATION} { return T_LOCATION; }

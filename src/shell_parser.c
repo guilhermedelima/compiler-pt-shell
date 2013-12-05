@@ -18,6 +18,8 @@ char *put_command_simple(char *verb, int token_type){
 		command = (token_type == T_FOLDER || token_type == T_FOLDERS) ? "mkdir" : "touch";
 	else if(!strcmp(verb, "remover") || !strcmp(verb, "apagar"))
 		command = (token_type == T_FOLDER || token_type == T_FOLDERS) ? "rm -R" : "rm";
+	else if(!strcmp(verb, "listar") && (token_type == T_FOLDER || token_type == T_FOLDERS))
+		command = "ls -a";
 	else{
 		yyerror("There's no command to this verb\n");
 		exit(-1);
@@ -143,6 +145,28 @@ char *put_command_grep(char *verb, char *regex, int token_type){
 	return strdup(command);
 }
 
+char *put_command_sed(char *verb, char *regex_find, char *regex_replace, int token_type){
+
+	char *command;
+
+	if( check_agreement(token_type) == FALSE){
+		yyerror("Use correct form of plural and singular");
+		exit(-1);
+	}
+
+	if(!strcmp(verb, "substituir") || !strcmp(verb, "trocar"))
+		command = "sed";
+	else{
+		yyerror("There's no command to this verb\n");
+		exit(-1);
+	}
+
+	fprintf(yyout, "%s \"s/%s/%s/g\"", command, regex_find, regex_replace);	
+	print_names();	
+
+	return strdup(command);
+}
+
 /* */
 
 void check_left_command(char *command){
@@ -170,6 +194,21 @@ void put_command_pipe_grep(char *verb, char *regex){
 	}
 
 	fprintf(yyout, " | %s %s", command, regex);
+}
+
+
+void put_command_pipe_sed(char *verb, char *regex_find, char *regex_replace){
+
+	char *command;
+
+	if(!strcmp(verb, "substituir") || !strcmp(verb, "trocar"))
+		command = "sed";
+	else{
+		yyerror("There's no command to this verb\n");
+		exit(-1);
+	}
+
+	fprintf(yyout, " | %s \"s/%s/%s/g\"", command, regex_find, regex_replace);
 }
 
 

@@ -20,6 +20,7 @@ plural_tokens yy_names = {.length = 0};
 %token T_END
 %token <num> T_NUMBER
 %token T_PREPOSITION
+%token T_REPLACE
 %token T_BACK
 %token T_PHRASE
 %token T_LOCATION
@@ -32,7 +33,7 @@ plural_tokens yy_names = {.length = 0};
 %type <str> shell_cd
 %type <str> shell_cp
 %type <str> shell_grep
-
+%type <str> shell_sed
 
 %%
 
@@ -52,6 +53,7 @@ command:
 	| shell_cd { $$ = $1; }
 	| shell_cp { $$ = $1; }
 	| shell_grep { $$ = $1; }
+	| shell_sed { $$ = $1; }
 	;	
 
 names:
@@ -93,6 +95,12 @@ shell_grep:
 	| T_VERB T_PHRASE T_REGEX T_LOCATIONS T_FOLDERS names { $$ = put_command_grep($1, $3, T_FOLDERS); }
 	;
 
+shell_sed:
+	T_VERB T_PHRASE T_REGEX T_REPLACE T_REGEX T_LOCATION T_FILE names { $$ = put_command_sed($1, $3, $5, T_FILE); }
+
+	| T_VERB T_PHRASE T_REGEX T_REPLACE T_REGEX T_LOCATIONS T_FILES names { $$ = put_command_sed($1, $3, $5, T_FILES); }
+	;
+
 pipe_rule:
 	pipe_command
 	| pipe_command T_PIPE pipe_rule
@@ -100,12 +108,16 @@ pipe_rule:
 
 pipe_command:
 	pipe_grep
+	| pipe_sed
 	;
 
 pipe_grep:
 	T_VERB T_PHRASE T_REGEX { put_command_pipe_grep($1, $3); }
 	;
 
+pipe_sed:
+	T_VERB T_PHRASE T_REGEX T_REPLACE T_REGEX { put_command_pipe_sed($1, $3, $5); }
+	;
 
 %%
 
