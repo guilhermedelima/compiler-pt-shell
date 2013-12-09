@@ -177,6 +177,7 @@ INSERT INTO comandos VALUES (4, 'cd', 'n');
 INSERT INTO comandos VALUES (5, 'cp', 'n');
 INSERT INTO comandos VALUES (7, 'rm', 'n');
 INSERT INTO comandos VALUES (8, 'touch', 'n');
+INSERT INTO comandos VALUES (9, 'sed', 's');
 
 
 --
@@ -203,6 +204,8 @@ INSERT INTO relacao_verbo_comando VALUES (2, 2, 'ver', 'cat');
 INSERT INTO relacao_verbo_comando VALUES (4, 2, 'exibir', 'cat');
 INSERT INTO relacao_verbo_comando VALUES (7, 8, 'criar', 'touch');
 INSERT INTO relacao_verbo_comando VALUES (8, 8, 'gerar', 'touch');
+INSERT INTO relacao_verbo_comando VALUES (29, 9, 'substituir', 'sed');
+INSERT INTO relacao_verbo_comando VALUES (30, 9, 'trocar', 'sed');
 
 
 --

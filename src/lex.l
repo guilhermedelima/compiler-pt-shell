@@ -28,17 +28,17 @@ PIPE e
 
 {WHITESPACE} { /* Nothing to do */ }
 
-{FILE} {  return T_FILE; }
-{FILES} { return T_FILES; }
-{FOLDER} { return T_FOLDER; }
-{FOLDERS} { return T_FOLDERS; }
-{PREPOSITION} { return T_PREPOSITION; }
-{REPLACE} { return T_REPLACE; }
-{BACK} { return T_BACK; }
-{PHRASE} { return T_PHRASE; }
-{LOCATION} { return T_LOCATION; }
-{LOCATIONS} { return T_LOCATIONS; }
-{PIPE} { return T_PIPE; }
+{FILE} { yylval.str = strdup(yytext); return T_FILE; }
+{FILES} { yylval.str = strdup(yytext); return T_FILES; }
+{FOLDER} { yylval.str = strdup(yytext); return T_FOLDER; }
+{FOLDERS} { yylval.str = strdup(yytext); return T_FOLDERS; }
+{PREPOSITION} { yylval.str = strdup(yytext); return T_PREPOSITION; }
+{REPLACE} { yylval.str = strdup(yytext); return T_REPLACE; }
+{BACK} { yylval.str = strdup(yytext); return T_BACK; }
+{PHRASE} { yylval.str = strdup(yytext); return T_PHRASE; }
+{LOCATION} { yylval.str = strdup(yytext); return T_LOCATION; }
+{LOCATIONS} { yylval.str = strdup(yytext); return T_LOCATIONS; }
+{PIPE} { yylval.str = strdup(yytext); return T_PIPE; }
 "\n" { return T_END; }
 
 {REGEX} { 

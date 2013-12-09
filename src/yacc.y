@@ -12,21 +12,21 @@ plural_tokens yy_names = {.length = 0};
 }
 
 %token <str> T_VERB
-%token T_FOLDER
-%token T_FOLDERS
-%token T_FILE
-%token T_FILES
+%token <str> T_FOLDER
+%token <str> T_FOLDERS
+%token <str> T_FILE
+%token <str> T_FILES
 %token <str> T_NAME
 %token T_END
 %token <num> T_NUMBER
-%token T_PREPOSITION
-%token T_REPLACE
-%token T_BACK
-%token T_PHRASE
-%token T_LOCATION
-%token T_LOCATIONS
+%token <str> T_PREPOSITION
+%token <str> T_REPLACE
+%token <str> T_BACK
+%token <str> T_PHRASE
+%token <str> T_LOCATION
+%token <str> T_LOCATIONS
 %token <str> T_REGEX
-%token T_PIPE
+%token <str> T_PIPE
 
 %type <str> command
 %type <str> shell_simple
