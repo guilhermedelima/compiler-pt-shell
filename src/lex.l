@@ -1,5 +1,6 @@
 %{
-#include "pt_spell.h"
+
+#include "shell_parser.h"
 
 %}
 
@@ -27,26 +28,28 @@ PIPE e
 %%
 
 {WHITESPACE} { /* Nothing to do */ }
+{FILE} { add_comment(strdup(yytext)); return T_FILE; }
+{FILES} { add_comment(strdup(yytext)); return T_FILES; }
+{FOLDER} { add_comment(strdup(yytext)); return T_FOLDER; }
+{FOLDERS} { add_comment(strdup(yytext)); return T_FOLDERS; }
+{PREPOSITION} { add_comment(strdup(yytext)); return T_PREPOSITION; }
+{REPLACE} { add_comment(strdup(yytext)); return T_REPLACE; }
+{BACK} { add_comment(strdup(yytext)); return T_BACK; }
+{PHRASE} { add_comment(strdup(yytext)); return T_PHRASE; }
+{LOCATION} { add_comment(strdup(yytext)); return T_LOCATION; }
+{LOCATIONS} { add_comment(strdup(yytext)); return T_LOCATIONS; }
+{PIPE} { add_comment(strdup(yytext)); return T_PIPE; }
 
-{FILE} { yylval.str = strdup(yytext); return T_FILE; }
-{FILES} { yylval.str = strdup(yytext); return T_FILES; }
-{FOLDER} { yylval.str = strdup(yytext); return T_FOLDER; }
-{FOLDERS} { yylval.str = strdup(yytext); return T_FOLDERS; }
-{PREPOSITION} { yylval.str = strdup(yytext); return T_PREPOSITION; }
-{REPLACE} { yylval.str = strdup(yytext); return T_REPLACE; }
-{BACK} { yylval.str = strdup(yytext); return T_BACK; }
-{PHRASE} { yylval.str = strdup(yytext); return T_PHRASE; }
-{LOCATION} { yylval.str = strdup(yytext); return T_LOCATION; }
-{LOCATIONS} { yylval.str = strdup(yytext); return T_LOCATIONS; }
-{PIPE} { yylval.str = strdup(yytext); return T_PIPE; }
-"\n" { return T_END; }
+"\n" { nLines++; return T_END; }
 
 {REGEX} { 
+	add_comment(strdup(yytext));
 	yylval.str = strdup(yytext);
 	return T_REGEX; 
 }
 
-{STRING} { 	
+{STRING} { 
+	add_comment(strdup(yytext));
 	return find_verb(yytext);
 }
 

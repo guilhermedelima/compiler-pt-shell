@@ -9,7 +9,6 @@ char *put_command_simple(char *verb, int token_type){
 
 	if( check_agreement(token_type) == FALSE ){
 		yyerror("Use correct form of plural and singular");
-		exit(-1);
 	}
 
 	if(!strcmp(verb, "mostrar") || !strcmp(verb, "exibir") || !strcmp(verb, "ver"))
@@ -22,7 +21,6 @@ char *put_command_simple(char *verb, int token_type){
 		command = "ls -a";
 	else{
 		yyerror("There's no command to this verb\n");
-		exit(-1);
 	}
 
 	fprintf(yyout, "%s", command);
@@ -43,7 +41,6 @@ char *put_command_cd(char *verb, char *name){
 		command = "cd";
 	else{
 		yyerror("There's no command to this verb\n");
-		exit(-1);
 	}
 
 	fprintf(yyout, "%s %s", command, (name) ? name : "..");
@@ -70,7 +67,6 @@ char *put_command_cp(char *verb, int s_token, char *source, int t_token, char *t
 		command = (s_token == T_FILE) ? "cp" : "cp -R";
 	else{
 		yyerror("There's no command to this verb\n");
-		exit(-1);
 	}
 
 	strcpy(new_target, target);
@@ -102,14 +98,12 @@ char *put_command_cp_plural(char *verb, int s_token, char *target){
 
 	if( check_agreement(s_token) == FALSE ){
 		yyerror("Use correct form of plural and singular");
-		exit(-1);
 	}
 
 	if(!strcmp(verb, "copiar"))
 		command = (s_token == T_FILES) ? "cp" : "cp -R";
 	else{
 		yyerror("There's no command to this verb\n");
-		exit(-1);
 	}
 
 	fprintf(yyout, "%s", command);
@@ -129,14 +123,12 @@ char *put_command_grep(char *verb, char *regex, int token_type){
 
 	if( check_agreement(token_type) == FALSE ){
 		yyerror("Use correct form of plural and singular");
-		exit(-1);
 	}
 
 	if(!strcmp(verb, "buscar") || !strcmp(verb, "encontrar") || !strcmp(verb, "filtrar"))
 		command = (token_type == T_FILE || token_type == T_FILES) ? "grep -i" : "grep -r -i";
 	else{
 		yyerror("There's no command to this verb\n");
-		exit(-1);
 	}
 
 	fprintf(yyout, "%s %s", command, regex);
@@ -151,14 +143,12 @@ char *put_command_sed(char *verb, char *regex_find, char *regex_replace, int tok
 
 	if( check_agreement(token_type) == FALSE){
 		yyerror("Use correct form of plural and singular");
-		exit(-1);
 	}
 
 	if(!strcmp(verb, "substituir") || !strcmp(verb, "trocar"))
 		command = "sed";
 	else{
 		yyerror("There's no command to this verb\n");
-		exit(-1);
 	}
 
 	rc1 = get_text_regex(regex_find);
@@ -182,7 +172,6 @@ void check_left_command(char *command){
 
 	if(isValidPipe == FALSE){
 		yyerror("Invalid verb to the left side of sentence\n");
-		exit(-1);
 	}
 
 }
@@ -196,7 +185,6 @@ void put_command_pipe_grep(char *verb, char *regex){
 		command = "grep";
 	else{
 		yyerror("There's no command to this verb\n");
-		exit(-1);
 	}
 
 	fprintf(yyout, " | %s %s", command, regex);
@@ -211,7 +199,6 @@ void put_command_pipe_sed(char *verb, char *regex_find, char *regex_replace){
 		command = "sed";
 	else{
 		yyerror("There's no command to this verb\n");
-		exit(-1);
 	}
 
 	rc1 = get_text_regex(regex_find);
@@ -244,6 +231,34 @@ void print_names(){
 	}	
 
 	yy_names.length = 0;
+}
+
+void add_comment(char *token){
+	yy_comment.list[yy_comment.length] = token;
+	yy_comment.length++;
+}
+
+void print_comment(){
+	
+	int i;
+	if(yyout_name){
+
+		fprintf(yyout, "#");
+
+		for(i=0; i<yy_comment.length; i++){
+			fprintf(yyout, " %s", yy_comment.list[i]);
+			free(yy_comment.list[i]);
+		}
+
+		fprintf(yyout, "\n\n");
+	}else{
+
+		for(i=0; i<yy_comment.length; i++){
+			free(yy_comment.list[i]);
+		}
+	}
+
+	yy_comment.length = 0;
 }
 
 boolean check_agreement(int token_type){

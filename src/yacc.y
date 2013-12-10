@@ -1,9 +1,12 @@
 %{
-#include "pt_spell.h"
 #include "shell_parser.h"
 
 FILE *yyout;
+char *yyout_name = NULL;
+int nLines = 1;
+
 plural_tokens yy_names = {.length = 0};
+plural_tokens yy_comment = {.length = 0};
 %}
 
 %union{
@@ -12,21 +15,21 @@ plural_tokens yy_names = {.length = 0};
 }
 
 %token <str> T_VERB
-%token <str> T_FOLDER
-%token <str> T_FOLDERS
-%token <str> T_FILE
-%token <str> T_FILES
+%token T_FOLDER
+%token T_FOLDERS
+%token T_FILE
+%token T_FILES
 %token <str> T_NAME
 %token T_END
 %token <num> T_NUMBER
-%token <str> T_PREPOSITION
-%token <str> T_REPLACE
-%token <str> T_BACK
-%token <str> T_PHRASE
-%token <str> T_LOCATION
-%token <str> T_LOCATIONS
+%token T_PREPOSITION
+%token T_REPLACE
+%token T_BACK
+%token T_PHRASE
+%token T_LOCATION
+%token T_LOCATIONS
 %token <str> T_REGEX
-%token <str> T_PIPE
+%token T_PIPE
 
 %type <str> command
 %type <str> left_simple
@@ -43,8 +46,8 @@ Input:
 
 line:
 	T_END
-	| command T_END { new_line(); }
-	| command T_PIPE pipe_rule T_END { check_left_command($1); new_line(); }
+	| command T_END { new_line(); print_comment(); }
+	| command T_PIPE pipe_rule T_END { check_left_command($1); new_line(); print_comment(); }
 	;
 
 command:
@@ -122,7 +125,15 @@ pipe_sed:
 %%
 
 void yyerror(char *s){
-	printf("ERROR: %s\n", s);
+	printf("\nERROR: %s\n", s);
+
+	if(yyout_name){
+		printf("At Line %d\n", nLines);
+		fclose(yyout);
+		remove(yyout_name);
+	}
+
+	exit(-1);
 }	
 
 int main(int argc, char *argv[]){
@@ -136,10 +147,14 @@ int main(int argc, char *argv[]){
 				yyin = fopen(argv[1], "r");
 				yyout = fopen(argv[2], "w");
 
+				yyout_name = strdup(argv[2]);
+
 				if(!yyin || !yyout){
 					fprintf(stderr, "Failed to open %s or create %s\n", argv[1], argv[2]);
 					exit(-1);
 				}
+
+				fprintf(yyout, "%s\n", START_MESSAGE);
 
 				break;
 			}

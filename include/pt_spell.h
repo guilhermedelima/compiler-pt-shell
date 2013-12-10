@@ -19,6 +19,10 @@ extern YYSTYPE yylval;
 extern FILE *yyin;
 extern FILE *yyout;
 
+extern char *yyout_name;
+
+extern int nLines;
+
 extern int yylex(); 
 extern int yyparse(); 
 extern void yyerror(char* s);
