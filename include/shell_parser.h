@@ -24,6 +24,7 @@ extern void put_command_pipe_sed(char *verb, char *regex_find, char *regex_repla
 
 extern void new_line();
 extern void add_name(char *names);
+extern char *get_text_regex(char *regex);
 extern char *get_filename(char *full_path);
 extern void print_names();
 extern boolean check_agreement(int token_type);

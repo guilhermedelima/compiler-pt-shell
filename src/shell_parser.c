@@ -147,7 +147,7 @@ char *put_command_grep(char *verb, char *regex, int token_type){
 
 char *put_command_sed(char *verb, char *regex_find, char *regex_replace, int token_type){
 
-	char *command;
+	char *command, *rc1, *rc2;
 
 	if( check_agreement(token_type) == FALSE){
 		yyerror("Use correct form of plural and singular");
@@ -161,8 +161,14 @@ char *put_command_sed(char *verb, char *regex_find, char *regex_replace, int tok
 		exit(-1);
 	}
 
-	fprintf(yyout, "%s \"s/%s/%s/g\"", command, regex_find, regex_replace);	
-	print_names();	
+	rc1 = get_text_regex(regex_find);
+	rc2 = get_text_regex(regex_replace);
+
+	fprintf(yyout, "%s \"s/%s/%s/g\"", command, rc1, rc2);	
+	print_names();
+
+	free(rc1);
+	free(rc2);
 
 	return strdup(command);
 }
@@ -199,7 +205,7 @@ void put_command_pipe_grep(char *verb, char *regex){
 
 void put_command_pipe_sed(char *verb, char *regex_find, char *regex_replace){
 
-	char *command;
+	char *command, *rc1, *rc2;
 
 	if(!strcmp(verb, "substituir") || !strcmp(verb, "trocar"))
 		command = "sed";
@@ -208,7 +214,13 @@ void put_command_pipe_sed(char *verb, char *regex_find, char *regex_replace){
 		exit(-1);
 	}
 
-	fprintf(yyout, " | %s \"s/%s/%s/g\"", command, regex_find, regex_replace);
+	rc1 = get_text_regex(regex_find);
+	rc2 = get_text_regex(regex_replace);
+
+	fprintf(yyout, " | %s \"s/%s/%s/g\"", command, rc1, rc2);
+
+	free(rc1);
+	free(rc2);
 }
 
 
@@ -256,4 +268,23 @@ char *get_filename(char *full_path){
 	free(str);
 	return strdup(buffer);
 }
+
+char *get_text_regex(char *regex){
+
+	int length;
+	char *new_regex;
+
+	length = (int)strlen(regex) - 2;
+	new_regex = (char *) calloc(length, sizeof(char));
+	strncpy(new_regex, regex+1, length);
+
+	return new_regex;
+}
+
+
+
+
+
+
+
 

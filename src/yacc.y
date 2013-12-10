@@ -29,11 +29,11 @@ plural_tokens yy_names = {.length = 0};
 %token <str> T_PIPE
 
 %type <str> command
-%type <str> shell_simple
-%type <str> shell_cd
-%type <str> shell_cp
-%type <str> shell_grep
-%type <str> shell_sed
+%type <str> left_simple
+%type <str> left_cd
+%type <str> left_cp
+%type <str> left_grep
+%type <str> left_sed
 
 %%
 
@@ -49,11 +49,11 @@ line:
 
 command:
 	T_NUMBER { printf("NUMBER: %d\n", $1); }
-	| shell_simple { $$ = $1; }
-	| shell_cd { $$ = $1; }
-	| shell_cp { $$ = $1; }
-	| shell_grep { $$ = $1; }
-	| shell_sed { $$ = $1; }
+	| left_simple { $$ = $1; }
+	| left_cd { $$ = $1; }
+	| left_cp { $$ = $1; }
+	| left_grep { $$ = $1; }
+	| left_sed { $$ = $1; }
 	;	
 
 names:
@@ -61,7 +61,7 @@ names:
 	| T_NAME names { add_name($1); }
 	;
 
-shell_simple:
+left_simple:
 	T_VERB T_FOLDER names { $$ = put_command_simple($1, T_FOLDER); }
 	| T_VERB T_FILE names { $$ = put_command_simple($1, T_FILE); }
 
@@ -69,12 +69,12 @@ shell_simple:
 	| T_VERB T_FILES names { $$ = put_command_simple($1, T_FILES); }
 	;
 
-shell_cd:
+left_cd:
 	T_VERB T_PREPOSITION T_FOLDER T_NAME { $$ = put_command_cd($1, $4); } 
 	| T_VERB T_PREPOSITION T_FOLDER T_BACK { $$ = put_command_cd($1, NULL); }
 	;
 	
-shell_cp:
+left_cp:
 	T_VERB T_FILE T_NAME T_PREPOSITION T_NAME { $$ = put_command_cp($1, T_FILE, $3, 0, $5); }
 
 	| T_VERB T_FILE T_NAME T_PREPOSITION T_FOLDER T_NAME { $$ = put_command_cp($1, T_FILE, $3, T_FOLDER, $6); }
@@ -87,7 +87,7 @@ shell_cp:
 	| T_VERB T_FOLDERS names T_PREPOSITION T_FOLDER T_NAME { $$ = put_command_cp_plural($1, T_FOLDERS, $6); }
 	;
 
-shell_grep:
+left_grep:
 	T_VERB T_PHRASE T_REGEX T_LOCATION T_FILE names { $$ = put_command_grep($1, $3, T_FILE); }
 	| T_VERB T_PHRASE T_REGEX T_LOCATION T_FOLDER names { $$ = put_command_grep($1, $3, T_FOLDER); }
 
@@ -95,7 +95,7 @@ shell_grep:
 	| T_VERB T_PHRASE T_REGEX T_LOCATIONS T_FOLDERS names { $$ = put_command_grep($1, $3, T_FOLDERS); }
 	;
 
-shell_sed:
+left_sed:
 	T_VERB T_PHRASE T_REGEX T_REPLACE T_REGEX T_LOCATION T_FILE names { $$ = put_command_sed($1, $3, $5, T_FILE); }
 
 	| T_VERB T_PHRASE T_REGEX T_REPLACE T_REGEX T_LOCATIONS T_FILES names { $$ = put_command_sed($1, $3, $5, T_FILES); }
