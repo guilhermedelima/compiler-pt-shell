@@ -46,8 +46,8 @@ encontrar frase "public void" nos diretorios src/ bin/
 
 mostrar Diretorio /opt E filtrar Frase "eclipse"
 
-substituir FRASE “BISON” por “alterei” no ARQUIVO Makefile
+substituir FRASE "BISON" por "alterei" no ARQUIVO Makefile
 
-ver Arquivo Makefile E filtar frase "Bison" e trocar frase "yacc" por "alterei" 
+ver Arquivo Makefile E filtrar frase "Bison" e trocar frase "yacc" por "alterei" 
 
 
