@@ -44,3 +44,10 @@ buscar frase "public void" no diretorio src/
 filtrar frase "public void" nos arquivos Pessoa.java Main.java
 encontrar frase "public void" nos diretorios src/ bin/
 
+mostrar Diretorio /opt E filtrar Frase "eclipse"
+
+substituir FRASE “BISON” por “alterei” no ARQUIVO Makefile
+
+ver Arquivo Makefile E filtar frase "Bison" e trocar frase "yacc" por "alterei" 
+
+
